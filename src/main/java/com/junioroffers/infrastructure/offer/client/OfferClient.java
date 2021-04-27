@@ -1,59 +1,34 @@
 package com.junioroffers.infrastructure.offer.client;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class OfferClient implements RemoteOfferClient{
+import com.junioroffers.infrastructure.RemoteOfferClient;
+import com.junioroffers.infrastructure.offer.dto.OfferDto;
+import lombok.AllArgsConstructor;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.*;
+import org.springframework.web.client.ResourceAccessException;
+import org.springframework.web.client.RestTemplate;
 
-    private String title;
-    private String company;
-    private String salary;
-    private String offerUrl;
+import java.util.List;
+import java.util.Collections;
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getCompany() {
-        return company;
-    }
-
-    public void setCompany(String company) {
-        this.company = company;
-    }
-
-    public String getSalary() {
-        return salary;
-    }
-
-    public void setSalary(String salary) {
-        this.salary = salary;
-    }
-
-    public String getOfferUrl() {
-        return offerUrl;
-    }
-
-    public void setOfferUrl(String offerUrl) {
-        this.offerUrl = offerUrl;
-    }
+@AllArgsConstructor
+public class OfferClient implements RemoteOfferClient {
+    private final RestTemplate restTemplate;
+    private final String uri;
 
     @Override
-    public String toString() {
-        return "OfferClient{" +
-                "title='" + title + '\'' +
-                ", company='" + company + '\'' +
-                ", salary='" + salary + '\'' +
-                ", offerUrl=" + offerUrl +
-                '}';
-    }
-
-    @Override
-    public void getOffers() {
-
+    public List<OfferDto> getOffers() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        final HttpEntity<HttpHeaders> requestEntity = new HttpEntity<>(headers);
+        try{
+            ResponseEntity<List<OfferDto>> response = restTemplate.exchange(uri, HttpMethod.GET, requestEntity,
+                    new ParameterizedTypeReference<List<OfferDto>>() {});
+            final List<OfferDto> body = response.getBody();
+            return (body != null) ? body : Collections.emptyList();
+        } catch (ResourceAccessException e){
+            return Collections.emptyList();
+        }
     }
 }

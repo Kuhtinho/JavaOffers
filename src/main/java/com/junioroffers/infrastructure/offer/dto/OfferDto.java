@@ -1,8 +1,16 @@
 package com.junioroffers.infrastructure.offer.dto;
 
+import lombok.*;
+
+@Getter
+@Setter
+@Builder
+@EqualsAndHashCode
+@AllArgsConstructor
+@NoArgsConstructor
 public class OfferDto {
-    private String id;
-    private String company;
-    private String salary;
-    private String offerUrl;
+    String id;
+    String company;
+    String salary;
+    String offerUrl;
 }
