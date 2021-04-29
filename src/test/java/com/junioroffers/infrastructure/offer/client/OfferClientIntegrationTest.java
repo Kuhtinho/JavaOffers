@@ -120,7 +120,7 @@ class OfferClientIntegrationTest implements SampleOfferDto{
     }
 
     @Test
-    void should_return_zero_job_offers_when_status_is_ok() {
+    void shouldReturnZeroJobOffersWhenStatusIsOk() {
         WireMock.stubFor(WireMock.get("/offers")
                 .willReturn(WireMock.aResponse()
                         .withStatus(HttpStatus.SC_OK)
@@ -131,7 +131,7 @@ class OfferClientIntegrationTest implements SampleOfferDto{
     }
 
     @Test
-    void should_return_response_not_found_status_exception_when_http_service_returning_not_found_status() {
+    void shouldReturnResponseNotFoundStatusExceptionWhenHttpServiceReturningNotFoundStatus() {
         WireMock.stubFor(WireMock.get("/offers")
                 .willReturn(WireMock.aResponse()
                         .withHeader("Content-Type", "application/json")
@@ -144,7 +144,7 @@ class OfferClientIntegrationTest implements SampleOfferDto{
     }
 
     @Test
-    void should_return_response_unauthorized_status_exception_when_http_service_returning_unauthorized_status() {
+    void shouldReturnResponseUnauthorizedStatusExceptionWhenHttpServiceReturningUnauthorizedStatus() {
         WireMock.stubFor(WireMock.get("/offers")
                 .willReturn(WireMock.aResponse()
                         .withHeader("Content-Type", "application/json")
@@ -157,7 +157,7 @@ class OfferClientIntegrationTest implements SampleOfferDto{
     }
 
     @Test
-    void should_return_zero_job_offers_when_response_delay_is_1500_milis() {
+    void shouldReturnZeroJobOffersWhenResponseDelayIs1500Milis() {
         final String uri = "http://localhost:" + port + "/offers";
         RemoteOfferClient remoteOfferClient = new ConfigTest().remoteOfferTestClient(uri, 1000, 1000);
         WireMock.stubFor(WireMock.get("/offers")
