@@ -43,7 +43,7 @@ class OfferControllerTest implements SampleOfferDto {
     public void shouldReturnStatusOkWhenGetForOfferWithId(@Autowired MockMvc mockMvc, @Autowired ObjectMapper objectMapper) throws Exception{
         String expectedResponseBody = objectMapper.writeValueAsString(cybersourceOffer());
 
-        final MvcResult mvcResult = mockMvc.perform(get("/offers"))
+        final MvcResult mvcResult = mockMvc.perform(get("/offers/2"))
                 .andExpect(status().isOk())
                 .andReturn();
         String actualResponseBody = mvcResult.getResponse().getContentAsString();
@@ -53,7 +53,7 @@ class OfferControllerTest implements SampleOfferDto {
     @Test
     public void shouldReturnStatusNotFoundWhenGetForOfferWithNotFoundId(@Autowired MockMvc mockMvc, @Autowired ObjectMapper objectMapper) throws Exception{
         OfferErrorResponse offerErrorResponse = new OfferErrorResponse("Offer with id 555 not found", HttpStatus.NOT_FOUND);
-        String expectedResponseBody = objectMapper.writeValueAsString(cybersourceOffer());
+        String expectedResponseBody = objectMapper.writeValueAsString(offerErrorResponse);
 
         final MvcResult mvcResult = mockMvc.perform(get("/offers/555"))
                 .andExpect(status().isNotFound())
