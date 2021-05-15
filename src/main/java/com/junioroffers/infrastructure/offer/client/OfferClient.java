@@ -14,6 +14,7 @@ import java.util.Collections;
 
 @AllArgsConstructor
 public class OfferClient implements RemoteOfferClient {
+
     private final RestTemplate restTemplate;
     private final String uri;
 
