@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 @AllArgsConstructor
 @EqualsAndHashCode
 public class OfferErrorResponse {
+
     private final String message;
     private final HttpStatus status;
 }
