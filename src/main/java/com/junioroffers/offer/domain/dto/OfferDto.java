@@ -4,16 +4,14 @@ import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
-import java.util.UUID;
-
 @Builder
 @Getter
 @EqualsAndHashCode
 public class OfferDto {
 
-    UUID uuid;
-    String companyName;
-    String position;
-    String salary;
-    String offerUrl;
+    private final String id;
+    private final String companyName;
+    private final String position;
+    private final String salary;
+    private final String offerUrl;
 }

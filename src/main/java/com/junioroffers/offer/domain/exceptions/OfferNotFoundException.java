@@ -6,9 +6,9 @@ import lombok.Getter;
 public class OfferNotFoundException extends RuntimeException{
 
     private static final long serialVersionUID = 6378244667204645097L;
-    private final long offerId;
+    private final String offerId;
 
-    public OfferNotFoundException(long offerId){
+    public OfferNotFoundException(String offerId){
         super(String.format("Offer with id %d not found", offerId));
         this.offerId = offerId;
     }

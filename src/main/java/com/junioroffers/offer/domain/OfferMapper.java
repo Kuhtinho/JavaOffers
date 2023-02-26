@@ -2,17 +2,15 @@ package com.junioroffers.offer.domain;
 
 import com.junioroffers.offer.domain.dto.OfferDto;
 
-import java.util.UUID;
-
 public class OfferMapper {
 
-    public static OfferDto mapToOfferDto(UUID uuid, String companyName, String position, String salary, String offerUrl){
+    public static OfferDto mapToOfferDto(Offer offer){
         return OfferDto.builder()
-                .uuid(uuid)
-                .companyName(companyName)
-                .position(position)
-                .salary(salary)
-                .offerUrl(offerUrl)
+                .id(offer.getId())
+                .companyName(offer.getCompanyName())
+                .position(offer.getPosition())
+                .salary(offer.getSalary())
+                .offerUrl(offer.getOfferUrl())
                 .build();
     }
 }

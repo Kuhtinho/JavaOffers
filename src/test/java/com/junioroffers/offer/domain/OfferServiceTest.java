@@ -4,20 +4,28 @@ import com.junioroffers.offer.domain.dto.OfferDto;
 import com.junioroffers.offer.domain.dto.SampleOfferDto;
 import com.junioroffers.offer.domain.exceptions.OfferNotFoundException;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.assertj.core.api.ThrowableAssert.catchThrowable;
+import static org.mockito.Mockito.when;
 
-class OfferServiceTest implements SampleOfferDto {
+class OfferServiceTest implements SampleOfferDto, SampleOffer {
+
+    OfferRepository offerRepository = Mockito.mock(OfferRepository.class);
 
     @Test
     public void shouldReturnTwoOffers(){
-        OfferService offerService = new OfferService();
-        final List<OfferDto> expectedOffers = Arrays.asList(cdqPolandOffer(), cybersourceOffer());
+        when(offerRepository.findAll()).thenReturn(Arrays.asList(cybersourceOffer(),cdqPolandOffer()));
+        assertThat(offerRepository.findAll()).isEqualTo(Arrays.asList(cybersourceOffer(), cdqPolandOffer()));
+
+        OfferService offerService = new OfferService(offerRepository);
+        final List<OfferDto> expectedOffers = Arrays.asList(cybersourceOfferDto(), cdqPolandOfferDto());
 
         final List<OfferDto> allOffers = offerService.findAllOffers();
 
@@ -26,27 +34,42 @@ class OfferServiceTest implements SampleOfferDto {
 
     @Test
     public void shouldReturnCorrectOfferForGivenIdTwo(){
-        OfferService offerService = new OfferService();
+        when(offerRepository.findById("7b3e02b3-6b1a-4e75-bdad-cef5b279b074")).
+                thenReturn(Optional.of(cybersourceOffer()));
+        assertThat(offerRepository.findById("7b3e02b3-6b1a-4e75-bdad-cef5b279b074")).
+                isEqualTo(Optional.of(cybersourceOffer()));
 
-        final OfferDto expectedOffer = offerService.findOfferById(2L);
+        OfferService offerService = new OfferService(offerRepository);
+
+        final OfferDto expectedOffer = offerService.
+                findOfferById("7b3e02b3-6b1a-4e75-bdad-cef5b279b074");
 
         then(expectedOffer).isEqualTo(cybersourceOffer());
     }
 
     @Test
     public void shouldReturnCorrectOfferForGivenIdOne(){
-        OfferService offerService = new OfferService();
+        when(offerRepository.findById("24ee32b6-6b15-11eb-9439-0242ac130002")).
+                thenReturn(Optional.of(cdqPolandOffer()));
+        assertThat(offerRepository.findById("24ee32b6-6b15-11eb-9439-0242ac130002")).
+                isEqualTo(Optional.of(cdqPolandOffer()));
 
-        final OfferDto expectedOffer = offerService.findOfferById(1L);
+        OfferService offerService = new OfferService(offerRepository);
 
-        then(expectedOffer).isEqualTo(cdqPolandOffer());
+        final OfferDto offerById = offerService.
+                findOfferById("24ee32b6-6b15-11eb-9439-0242ac130002");
+
+        then(offerById).isEqualTo(cdqPolandOfferDto());
     }
 
     @Test
     public void shouldThrowOfferNotFoundExceptionWhenNoOfferWithGivenId(){
-        OfferService offerService = new OfferService();
+        when(offerRepository.findById("1000")).thenReturn(Optional.empty());
+        assertThat(offerRepository.findById("1000")).isEqualTo(Optional.empty());
 
-        Throwable thrown = catchThrowable(() -> offerService.findOfferById(1000));
+        OfferService offerService = new OfferService(offerRepository);
+
+        Throwable thrown = catchThrowable(() -> offerService.findOfferById("1000"));
 
         assertThat(thrown)
                 .isInstanceOf(OfferNotFoundException.class)
