@@ -2,7 +2,7 @@ package com.junioroffers.offer;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.junioroffers.offer.domain.OfferRepository;
-import com.junioroffers.offer.domain.OfferService;
+import com.junioroffers.offer.domain.service.OfferService;
 import com.junioroffers.offer.domain.dto.OfferDto;
 import com.junioroffers.offer.domain.dto.SampleOfferDto;
 import com.junioroffers.offer.domain.exceptions.OfferControllerErrorHandler;

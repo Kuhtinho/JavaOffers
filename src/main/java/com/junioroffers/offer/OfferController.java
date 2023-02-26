@@ -1,6 +1,6 @@
 package com.junioroffers.offer;
 
-import com.junioroffers.offer.domain.OfferService;
+import com.junioroffers.offer.domain.service.OfferService;
 import com.junioroffers.offer.domain.dto.OfferDto;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;

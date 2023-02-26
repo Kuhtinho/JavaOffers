@@ -3,6 +3,7 @@ package com.junioroffers.offer.domain;
 import com.junioroffers.offer.domain.dto.OfferDto;
 import com.junioroffers.offer.domain.dto.SampleOfferDto;
 import com.junioroffers.offer.domain.exceptions.OfferNotFoundException;
+import com.junioroffers.offer.domain.service.OfferService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 

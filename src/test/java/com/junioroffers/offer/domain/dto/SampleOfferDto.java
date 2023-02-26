@@ -1,6 +1,5 @@
 package com.junioroffers.offer.domain.dto;
 
-import com.junioroffers.offer.domain.OfferMapper;
 import com.junioroffers.offer.domain.SampleOffer;
 
 

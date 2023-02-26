@@ -1,5 +1,7 @@
-package com.junioroffers.offer.domain;
+package com.junioroffers.offer.domain.service;
 
+import com.junioroffers.offer.domain.dto.OfferMapper;
+import com.junioroffers.offer.domain.OfferRepository;
 import com.junioroffers.offer.domain.dto.OfferDto;
 import com.junioroffers.offer.domain.exceptions.OfferNotFoundException;
 import lombok.RequiredArgsConstructor;
